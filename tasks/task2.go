@@ -1,5 +1,14 @@
 package tasks
 
-func Multiply(a, b int) int {
-	return a * b
-}
+// import "fmt"
+
+// func main() {
+// 	var n int
+// 	fmt.Scanln(&n)
+
+// 	if n % 2 ==0 {
+// 		fmt.Println(n)
+// 	}else {
+// 		fmt.Println(n*2)
+// 	}
+// }
