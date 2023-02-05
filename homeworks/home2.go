@@ -1,23 +1,20 @@
 package homeworks
 
-// import "fmt"
+import "errors"
 
-// func main() {
+func Drop(chars []byte, index int) (error, string, []byte) {
+	message := ""
+	data := []byte{}
 
-// 	var chars []byte = []byte{'A', 'B', 'C', 'D', 'E', 'F', 'J', 'I', 'H'}
+	if len(chars) < index {
+		return errors.New("smt"), "index more than length of array", data
+	}
+	for i := 0; i < len(chars); i++ {
+		if i != index {
+			data = append(data, chars[i])
+		}
 
-// 	err, message, data := drop(chars, 1)
+	}
 
-// 	if err {
-// 		fmt.Println(message)
-// 	} else {
-// 		fmt.Println(string(data)) // 'A','C','D','E','F','J','I','H'
-// 	}
-// }
-// func drop() int{
-// newMap := make(map[byte]string)
-
-// for _, v  {
-	
-// }
-// }
+	return nil, message, data
+}
