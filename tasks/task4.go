@@ -12,31 +12,29 @@ type linkedList struct {
 	len  int
 }
 
-func (l *linkedList) DeletedAt(pos int) {
-	if pos < 0 {
-		fmt.Println("position cannot be negative")
-		return
-	}
-	if l.len == 0 {
-		fmt.Println("No Nodes in this list")
-		return
-	}
-	if pos == 0 {
-		l.head = l.head.next
-		l.len--
-		return
-	}
+func (l *linkedList) Insert(data int) {
+	newNode := Node{}
+	newNode.data = data
 
-	prevNode := l.GetAt(pos - 1)
-	if prevNode == nil {
-		fmt.Println("no Node Found")
+	if l.len == 0 {
+		l.head = &newNode
+		l.len++
 		return
 	}
-	prevNode.next = l.GetAt(pos).next
-	l.len--
+	ptr := l.head
+
+	for i := 0; i < l.len; i++ {
+		if ptr.next == nil {
+			ptr.next = &newNode
+			l.len++
+			return
+		}
+		ptr = ptr.next
+	}
 }
 
 func (l *linkedList) GetAt(pos int) *Node {
+
 	if pos > l.len {
 		fmt.Println("not found node")
 		return nil
@@ -65,19 +63,14 @@ func (l *linkedList) Print() {
 }
 
 func main() {
+	
 	llist := linkedList{}
 
-	llist.Insert(40)
-	llist.Insert(41)
-	llist.Insert(42)
+	llist.Insert(33)
+	llist.Insert(23)
+	llist.Insert(53)
 	llist.Insert(43)
-	llist.Insert(44)
-	llist.Print()
 
-	llist.InsertAt(2,43)
+	fmt.Println(llist.GetAt(1))
 	llist.Print()
-	
-	llist.DeletedAt(2)
-	llist.Print()
-
 }
