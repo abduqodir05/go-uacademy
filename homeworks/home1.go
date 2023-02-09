@@ -10,8 +10,7 @@ func DecodeMessage(key string, message string) string {
 		myMap[key[i]]++
 	}
 
-	alphabet := "abcdefghijklmnopqrstuvwxyz"
-	newMap := map[byte]byte{}
+
 
 	j := 0
 	for i := 0; i < len(keySorted); i++ {
@@ -19,5 +18,5 @@ func DecodeMessage(key string, message string) string {
 			j++
 		}
 	}
-	return ""
+	return " "
 }

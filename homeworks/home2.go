@@ -1,19 +1,16 @@
 package homeworks
 
-func SumOfUnique(nums []int) int {
-	uniq := []int{}
-	keys := map[int]bool{}
-	sum := 0
+func SmallerNumbersThanCurrent(nums []int) []int {
+	result := make([]int, len(nums))
 
-	for _, v := range nums {
-		if value := keys[v]; !value {
-			keys[v] = true
-			uniq = append(uniq, v)
+	for i := range nums {
+		count := 0
+		for j := range nums {
+			if nums[i] > nums[j] {
+				
+			}
 		}
+		result[i] = count
 	}
-
-	for _, v := range uniq {
-		v += sum
-	}
-	return sum
+	return result
 }
