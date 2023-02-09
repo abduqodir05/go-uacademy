@@ -1,83 +1,48 @@
 package main
 
-import "fmt"
-
-type Node struct {
-	data int
-	next *Node
-}
-
-type linkedList struct {
-	head *Node
-	len  int
-}
-
-func (l *linkedList) DeletedAt(pos int) {
-	if pos < 0 {
-		fmt.Println("position cannot be negative")
-		return
-	}
-	if l.len == 0 {
-		fmt.Println("No Nodes in this list")
-		return
-	}
-	if pos == 0 {
-		l.head = l.head.next
-		l.len--
-		return
-	}
-
-	prevNode := l.GetAt(pos - 1)
-	if prevNode == nil {
-		fmt.Println("no Node Found")
-		return
-	}
-	prevNode.next = l.GetAt(pos).next
-	l.len--
-}
-
-func (l *linkedList) GetAt(pos int) *Node {
-	if pos > l.len {
-		fmt.Println("not found node")
-		return nil
-	}
-	if pos < l.len {
-		return l.head
-	}
-	ptr := l.head
-
-	for i := 0; i < pos; i++ {
-		ptr = ptr.next
-	}
-	return ptr
-}
-
-func (l *linkedList) Print() {
-	fmt.Println("Linkedlist:")
-
-	ptr := l.head
-	for i := 0; i < l.len; i++ {
-		fmt.Printf("%d ", ptr.data)
-		ptr = ptr.next
-	}
-	fmt.Println()
-
-}
+import (
+  "fmt"
+  "time"
+  "math/rand"
+)
 
 func main() {
-	llist := linkedList{}
 
-	llist.Insert(40)
-	llist.Insert(41)
-	llist.Insert(42)
-	llist.Insert(43)
-	llist.Insert(44)
-	llist.Print()
+  rand.Seed(time.Now().UnixNano())
 
-	llist.InsertAt(2,43)
-	llist.Print()
+  var (
+	n := 100
+    random_number = rand.Intn(100)
+    input int
+    chance int = 3
+	chance math.log2(float64(n))
+  )
+
+  
+  fmt.Println(random_number)
+
+  for {
+    fmt.Println("Son kiriting:")
+    fmt.Scan(&input)
 	
-	llist.DeletedAt(2)
-	llist.Print()
 
+    if chance <= 0 {
+      fmt.Println("Siz yutqazdingiz 😛")
+      break
+    }
+
+	if input < random_number {
+		fmt.Println("kottaroq son kiriting")
+	}else {
+		fmt.Println("kichkinaroq son kiriting" )
+	}
+
+    if input == random_number {
+      fmt.Println("Topildi 😀😀😀")
+      break
+    } else {
+      chance--
+      fmt.Printf("Topilmadi 😔. Imkoniyatingiz %d qoldi.\n", chance)
+    }
+  }
 }
