@@ -1,22 +1,17 @@
 package homeworks
 
-func DecodeMessage(key string, message string) string {
-	keySorted := []byte{}
-	myMap := map[byte]int{}
-	for i, _ := range key {
-		if key[i] != ' ' && myMap[key[i]] == 0 {
-			keySorted = append(keySorted, key[i])
-		}
-		myMap[key[i]]++
+func SumOfUniqueNums(nums []int) int {
+
+	var newMap = make(map[int]int)
+
+	for _, v := range nums {
+		newMap[v]++
 	}
-
-
-
-	j := 0
-	for i := 0; i < len(keySorted); i++ {
-		if keySorted[i] != ' ' {
-			j++
+	sum := 0
+	for i, v := range newMap {	
+		if v==1 {
+			sum +=i
 		}
 	}
-	return " "
+	return sum
 }

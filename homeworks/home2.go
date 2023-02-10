@@ -7,7 +7,7 @@ func SmallerNumbersThanCurrent(nums []int) []int {
 		count := 0
 		for j := range nums {
 			if nums[i] > nums[j] {
-				
+				count++
 			}
 		}
 		result[i] = count
