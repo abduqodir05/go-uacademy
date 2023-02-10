@@ -9,3 +9,7 @@ func GetOddIndexNums(array []int) []int {
 	}
 	return newArr
 }
+
+
+// exercise 5
+// Faqat toq indexda turgan elementlarni ekrangi chiqaruvchi function tuzing.

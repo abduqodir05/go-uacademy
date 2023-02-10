@@ -6,3 +6,6 @@ func ReverseArr(arr []int) []int {
 	}
 	return arr
 }
+
+// exercise 4
+// Shu sonlarni teskari tartibda chiqaring.

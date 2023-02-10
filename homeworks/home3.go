@@ -1,12 +1,15 @@
 package homeworks
 
-
 func GetSecondOddNum(arr []int) int {
-	num1 := arr[0]
+	newSlice := []int{}
 	for i := 0; i < len(arr); i++ {
-		if num1 % 2 == 0{
-		num1 = arr[i]
+		if arr[i]%2 != 0 {
+			newSlice = append(newSlice, arr[i])
+		}
 	}
+	second := newSlice[1]
+	return second
 }
-return num1
-}
+
+// exercise 3
+// Shu sonlar ichidan 2-tub sonni qaytaruvchi funksiya tuzing.
