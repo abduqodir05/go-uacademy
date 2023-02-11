@@ -1,6 +1,14 @@
 package homeworks
 
+import (
+	"math/rand"
+	"time"
+)
+
 func GetSecondOddNum(arr []int) int {
+
+	(rand.Seed(time.Now().UnixNano()))
+
 	newSlice := []int{}
 	for i := 0; i < len(arr); i++ {
 		if arr[i]%2 != 0 {
@@ -12,4 +20,4 @@ func GetSecondOddNum(arr []int) int {
 }
 
 // exercise 3
-// Shu sonlar ichidan 2-tub sonni qaytaruvchi funksiya tuzing.
+// Shu sonlar ichidan 2-toq sonni qaytaruvchi funksiya tuzing.

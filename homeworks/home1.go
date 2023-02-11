@@ -1,14 +1,32 @@
 package homeworks
 
-func GetOddNums(arr []int)[]int  {
-	newArr := []int{}
+import (
+	"math/rand"
+	"time"
+	"fmt"
+)
 
-	for i := 0; i < len(arr); i++ {
-		if arr[i]%2 != 0 {
-			newArr = append(newArr, arr[i])
+
+func GetOddNums(arr []int) int {
+
+	(rand.Seed(time.Now().UnixNano()))
+
+	var flag int = 0
+
+	fmt.Printf("Prime Numbers: \n")
+	for i := 0; i <= 5; i++ {
+		flag = 0
+		for j := 2; j < arr[i]/2; j++ {
+			if arr[i]%j == 0 {
+				flag = 1
+				break
+			}
+		}
+		if flag == 0 && arr[i]>1 {
+			fmt.Printf("%d ", arr[i])
 		}
 	}
-	return newArr
+	return flag
 }
 
 // execsise 1

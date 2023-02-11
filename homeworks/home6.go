@@ -1,8 +1,15 @@
 package homeworks
 
-import "fmt"
+import (
+	"math/rand"
+	"time"
+	"fmt"
+)
 
 func CompareSumOfOddAndEven(myArray []int) int {
+
+	(rand.Seed(time.Now().UnixNano()))
+	
 	evenArray := []int{}
 	oddArray := []int{}
 	sumOdd := 0
