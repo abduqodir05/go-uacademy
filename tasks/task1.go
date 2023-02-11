@@ -19,7 +19,7 @@ func Getbyid(id int) tasks.User {
 }
 
 func Update(data tasks.User) tasks.User {
-  for idx, val := range Users {
+  for idx, val := range tasks.Users {
     if val.Id == data.Id {
       Users[idx].Name = data.Name
       Users[idx].Surname = data.Surname
