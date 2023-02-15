@@ -1,4 +1,4 @@
-package storage
+package jsondb
 
 import (
 	"encoding/json"
@@ -45,7 +45,7 @@ func (u *userRepo) Getlist(search string) ([]models.User, error) {
 	return users, nil
 }
 
-func (u *userRepo) Create(req *models.User) (id int, err error) {
+func (u *userRepo) Create(req *models.CreateUser) (id int, err error) {
 
 	var users []*models.User
 	err = json.NewDecoder(u.file).Decode(&users)
@@ -87,13 +87,12 @@ func (u *userRepo) Create(req *models.User) (id int, err error) {
 	return id, nil
 }
 
-func (u *userRepo) Update(req *models.User) error{
+func (u *userRepo) Update(req *models.User) error {
 	var users []*models.User
 	err := json.NewDecoder(u.file).Decode(&users)
 	if err != nil {
 		return err
 	}
-	return nil
 
 	for idx, v := range users {
 		if users[idx].Id == v.Id {
@@ -109,7 +108,6 @@ func (u *userRepo) Update(req *models.User) error{
 	}
 	return nil
 }
-
 
 func (u *userRepo) Read(req *models.CreateUser) (id int, err error) {
 

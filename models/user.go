@@ -21,7 +21,7 @@ type User struct {
 	Email string `json:"email"`
 	Phone_number string `json:"phone_number"`
   }
-  type Update struct {
+  type UpdateUser struct {
 	First_name string `json:"first_name"`
 	Last_name string `json:"last_name"`
   }
@@ -35,4 +35,7 @@ type User struct {
 	Profession string `json:"profession"`
 	Address Address `json:"address"`
 	Friends []Friend `json:"friends"`
+}
+type UserPrimaryKey struct {
+	Id int `json:"id"`
 }

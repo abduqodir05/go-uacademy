@@ -12,63 +12,7 @@ import (
 	"os"
 )
 
-type User struct {
-	Id          string   `json:"id"`
-	First_name  string   `json:"first_name"`
-	Last_name   string   `json:"last_name"`
-	Gender      string   `json:"gender"`
-	Card_number string   `json:"card_number"`
-	Birthday    string   `json:"birthday"`
-	Profession  string   `json:"profession"`
-	Address     Address  `json:"address"`
-	Friends     []friend `json:"friends"`
-}
 
-type Address struct {
-	Street string `json:"street"`
-	City   string `json:"city"`
-}
-type friend struct {
-	Id           string `json:"id"`
-	Email        string `json:"email"`
-	Phone_number string `json:"phone_number"`
-}
-
-func Update(req []User, u User) {
-	for idx, v := range req {
-		if v.Id == u.Id {
-			req[idx].First_name = u.First_name
-			req[idx].Last_name = u.Last_name
-			req[idx].Gender = u.Gender
-			req[idx].Card_number = u.Card_number
-			req[idx].Birthday = u.Birthday
-			req[idx].Profession = u.Profession
-			req[idx].Address = u.Address
-			req[idx].Friends = u.Friends
-		}
-	}
-	body, err := json.MarshalIndent(req, "", "   ")
-
-	err = ioutil.WriteFile("users.json", body, os.ModePerm)
-	if err != nil {
-		return
-	}
-
-}
-func Delete(req []User, id string) {
-
-	for ind, v := range req {
-		if v.Id == id {
-			req = append(req[:ind], req[ind+1:]...)
-		}
-	}
-	body, err := json.MarshalIndent(req, "", "   ")
-
-	err = ioutil.WriteFile("users.json", body, os.ModePerm)
-	if err != nil {
-		return
-	}
-}
 
 func main() {
 	// var users []User
@@ -115,13 +59,12 @@ func main() {
 	
 	
 	
-	b := controller.NewController(&cfg, store)
-
-	id, err =  b.UpdateUser(
-		&models.Update{
-			
-		}
-	)
+	_, err = c.UpdateUser(
+		&models.UpdateUser{
+		  First_name: "asd",
+		  Last_name: "bbb",
+		},
+	  )
 	
 	
 	// user := User{
