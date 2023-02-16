@@ -1,4 +1,4 @@
-package storage
+package jsondb
 
 import (
 	"encoding/json"
@@ -6,9 +6,8 @@ import (
 	"fmt"
 	"go-uacademy/models"
 	"io/ioutil"
-	// "log"
 	"os"
-	// "strings"
+
 )
 
 type userRepo struct {
@@ -58,7 +57,7 @@ func (u *userRepo) Create(req *models.CreateUser) (id int, err error) {
 
 	body, err := json.MarshalIndent(users, "", "   ")
 
-	err = ioutil.WriteFile("/data/users.json", body, os.ModePerm)
+	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
 		return 0, err
 	}
@@ -82,7 +81,7 @@ func (u *userRepo) Update(req *models.User) (res *models.User, err error) {
 	}
 	body, err := json.MarshalIndent(req, "", "   ")
 
-	err = ioutil.WriteFile("/data/users.json", body, os.ModePerm)
+	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (u *userRepo) Delete(req *models.User) (res *models.User, err error) {
 	}
 	body, err := json.MarshalIndent(req, "", "   ")
 	
-	err = ioutil.WriteFile("/data/users.json", body, os.ModePerm)
+	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +127,7 @@ func (u *userRepo) GetUserById(req *models.User) (*models.User,  error) {
 	
 	body, err := json.MarshalIndent(req, "", "   ")
 
-	err = ioutil.WriteFile("/data/users.json", body, os.ModePerm)
+	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}

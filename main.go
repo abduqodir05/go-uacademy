@@ -5,14 +5,14 @@ import (
 	"go-uacademy/config"
 	"go-uacademy/controller"
 	"go-uacademy/models"
-	"go-uacademy/storage"
+	"go-uacademy/storage/jsondb"
 	"log"
 )
 
 func main() {
 
 	cfg := config.Load()
-	store, err := storage.NewFileJson(&cfg)
+	store, err := jsondb.NewFileJson(&cfg)
 	if err != nil {
 		panic("error while connect to json file: " + err.Error())
 	}
@@ -53,26 +53,26 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(user)
-	
+
 	// delete user
 	deleted_user, err := c.DeleteUser(
 		&models.DeleteUser{
-			First_name:  "Abduqodir",
-			Last_name:   "Musayev",
+			First_name: "Abduqodir",
+			Last_name:  "Musayev",
 		},
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(deleted_user)
-	
+
 	// get_by_id
 
-	user, err = c.GetUserById(
-		&models.UserPrimaryKey{
-			Id: 1,
-		},
-	)
+	// user, err = c.GetUserById(
+	// 	&models.UserPrimaryKey{
+	// 		Id: 1,
+	// 	},
+	// )
 	if err != nil {
 		log.Fatal(err)
 	}
