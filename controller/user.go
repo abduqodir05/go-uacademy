@@ -13,21 +13,21 @@ func (c *Controller) CreateUser(req *models.CreateUser) (id int, err error) {
 
 	return id, nil
 }
-func (c *Controller) UpdateUser(req *models.UpdateUser) (res *models.User, err error) {
-	user, err := c.store.User().Update(res)
+func (c *Controller) UpdateUser(req *models.UpdateUser) (res models.User, err error) {
+	user, err := c.store.User().Update(req)
 	if err != nil {
-		return nil, err
+		return models.User{}, err
 	}
 
 	return user, nil
 }
 func (c *Controller) DeleteUser(req *models.DeleteUser) (res *models.User, err error) {
-	User, err := c.store.User().Delete(res)	
+	User, err := c.store.User().Delete(res)
 	if err != nil {
 		return nil, err
 	}
 
-	return User, nil
+	return &User, nil
 }
 
 // func (c *Controller) GetUserById(req *models.UserPrimaryKey) (*models.User, error) {

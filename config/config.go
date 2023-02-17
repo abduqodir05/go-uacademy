@@ -11,8 +11,9 @@ func Load() Config {
 	cfg := Config{}
 
 	cfg.Path = "./data"
-	cd
+	
 	cfg.UserFileName = "/users.json"
+	cfg.PostFileName = "/post.json"
 
 	return cfg
 }

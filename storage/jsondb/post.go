@@ -3,6 +3,7 @@ package jsondb
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"go-uacademy/models"
 	"io/ioutil"
 	"os"
@@ -20,9 +21,13 @@ func NewPostRepo(fileName string, file *os.File) *postRepo {
 	}
 }
 
-func (u *userRepo) CreatePost(req *models.Post) (id int, err error) {
+func (u *postRepo) CreatePost(req *models.CreatePost) (id int, err error) {
 	var posts []*models.Post
-	err = json.NewDecoder(u.file).Decode(&posts)
+	data, err := ioutil.ReadFile("./data/post.json")
+	if err != nil {
+		return 0, err
+	}
+	err = json.Unmarshal(data, &posts)
 	if err != nil {
 		return 0, err
 	}
@@ -45,32 +50,38 @@ func (u *userRepo) CreatePost(req *models.Post) (id int, err error) {
 
 	body, err := json.MarshalIndent(posts, "", "   ")
 
-	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
+		fmt.Println("adasda")
+
+		return 0, nil
+	}
+
+	err = ioutil.WriteFile("./data/post.json", body, os.ModePerm)
+	if err != nil {
+		fmt.Println("adasda")
 		return 0, err
 	}
 
 	return id, nil
 }
 
-func (u *userRepo) GetById(req *models.Post) (*models.Post, error){
+func (u *postRepo) GetByIdPost(id string) (*models.Post, error) {
 	var posts []*models.Post
-	err := json.NewDecoder(u.file).Decode(&posts)
+	data, err := ioutil.ReadFile("./data/post.json")
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &posts)
 	if err != nil {
 		return nil, err
 	}
 
-	for ind, val := range posts {
-		if posts[ind].Id == val.Id{
+	for _, val := range posts {
+		if id == val.Id {
 			return val, nil
 		}
 	}
-	body, err := json.MarshalIndent(req, "" , "   ")
 
-	err = ioutil.WriteFile(u.fileName,body,os.ModePerm)
-	if err != nil {
-		return nil, err
-	}
 	return &models.Post{}, errors.New("Post Not Found")
 
 }

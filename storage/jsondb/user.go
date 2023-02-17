@@ -7,7 +7,6 @@ import (
 	"go-uacademy/models"
 	"io/ioutil"
 	"os"
-
 )
 
 type userRepo struct {
@@ -23,15 +22,32 @@ func NewUserRepo(f string, file *os.File) *userRepo {
 	}
 }
 
+func readFile() ([]models.User, error) {
+	users := []models.User{}
+	data, err := ioutil.ReadFile("./data/users.json")
+	// err = json.NewDecoder(u.file).Decode(users)
+	if err != nil {
+		fmt.Println("Get Abdulqodir Update")
+
+		return []models.User{}, err
+	}
+	err = json.Unmarshal(data, &users)
+	if err != nil {
+		return []models.User{}, err
+	}
+
+	return users, nil
+
+}
+
 func (u *userRepo) Create(req *models.CreateUser) (id int, err error) {
 
-	var users []*models.User
-	err = json.NewDecoder(u.file).Decode(&users)
+	users, err := readFile()
 	if err != nil {
 		return 0, err
 	}
 	if len(users) > 0 {
-		users = append(users, &models.User{
+		users = append(users, models.User{
 			Id:          req.Id,
 			First_name:  req.First_name,
 			Last_name:   req.Last_name,
@@ -43,7 +59,7 @@ func (u *userRepo) Create(req *models.CreateUser) (id int, err error) {
 		})
 	} else {
 		id = 1
-		users = append(users, &models.User{
+		users = append(users, models.User{
 			Id:          req.Id,
 			First_name:  req.First_name,
 			Last_name:   req.Last_name,
@@ -55,21 +71,34 @@ func (u *userRepo) Create(req *models.CreateUser) (id int, err error) {
 		})
 	}
 
-	body, err := json.MarshalIndent(users, "", "   ")
+	body, err := json.MarshalIndent(users, "", "  ")
+	if err != nil {
+		fmt.Println("asdsdf")
+		return 0, err
+	}
 
 	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
+		fmt.Println("asdsdf")
 		return 0, err
 	}
 
 	return id, nil
 }
 
-func (u *userRepo) Update(req *models.User) (res *models.User, err error) {
-	var users []*models.User
-	err = json.NewDecoder(u.file).Decode(&users)
+func (u *userRepo) Update(req *models.UpdateUser) (res models.User, err error) {
+	users := []models.User{}
+	// ============
+	data, err := ioutil.ReadFile(u.fileName)
+	// err = json.NewDecoder(u.file).Decode(users)
 	if err != nil {
-		return nil, err
+		fmt.Println("Get Abdulqodir Update")
+
+		return models.User{}, err
+	}
+	err = json.Unmarshal(data, &users)
+	if err != nil {
+		return models.User{}, err
 	}
 
 	for idx, v := range users {
@@ -77,67 +106,66 @@ func (u *userRepo) Update(req *models.User) (res *models.User, err error) {
 			fmt.Println("SUCCESS: Updated the user")
 			users[idx].First_name = v.First_name
 			users[idx].Last_name = v.Last_name
+			return
 		}
 	}
-	body, err := json.MarshalIndent(req, "", "   ")
+	body, err := json.MarshalIndent(users, "", "   ")
 
 	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
-		return nil, err
+		return models.User{}, err
 	}
 	return res, nil
 }
 
-func (u *userRepo) Delete(req *models.User) (res *models.User, err error) {
-	var users []*models.User
+func (u *userRepo) Delete(req *models.User) (res models.User, err error) {
+	var users []models.User
 	err = json.NewDecoder(u.file).Decode(&users)
 	if err != nil {
-		return nil, err
+		fmt.Println("Get list")
+
+		return models.User{}, err
 	}
 
 	for ind, val := range users {
 		if users[ind].Id == val.Id {
 			fmt.Println("SUCCESS: Deleted the user")
 			users = append(users[ind:], users[ind+1:]...)
+			return
 		}
 	}
-	body, err := json.MarshalIndent(req, "", "   ")
-	
+	body, err := json.MarshalIndent(users, "", "   ")
+
 	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
 	if err != nil {
-		return nil, err
+		return models.User{}, err
 	}
-	
+
 	return res, nil
 }
 
-func (u *userRepo) GetUserById(req *models.User) (*models.User,  error) {
-	
-	var users []*models.User
+func (u *userRepo) GetUserById(req *models.User) (models.User, error) {
+
+	var users []models.User
 	err := json.NewDecoder(u.file).Decode(&users)
 	if err != nil {
-		return nil, err
+		fmt.Println("Get list")
+
+		return models.User{}, err
 	}
-	
+
 	for ind, v := range users {
 		if users[ind].Id == v.Id {
 			return v, nil
 		}
 	}
-	
-	body, err := json.MarshalIndent(req, "", "   ")
 
-	err = ioutil.WriteFile(u.fileName, body, os.ModePerm)
-	if err != nil {
-		return nil, err
-	}
-
-	return &models.User{}, errors.New("user not found")
+	return models.User{}, errors.New("user not found")
 }
 
 func (u *userRepo) Read(req *models.CreateUser) (id int, err error) {
 
-	var users []*models.User
+	var users []models.User
 	err = json.NewDecoder(u.file).Decode(&users)
 	if err != nil {
 		return 0, err
@@ -146,16 +174,18 @@ func (u *userRepo) Read(req *models.CreateUser) (id int, err error) {
 	return id, nil
 }
 
-
 func (u *userRepo) GetList(req *models.GetListRequest) (*models.GetListResponse, error) {
 	users := make([]models.User, 0)
 
 	data, err := ioutil.ReadFile(u.fileName)
 	if err != nil {
+		fmt.Println("Get list")
+
 		return nil, err
 	}
 	err = json.Unmarshal(data, &users)
 	if err != nil {
+		fmt.Println("Get list")
 		return nil, err
 	}
 

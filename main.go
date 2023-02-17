@@ -66,6 +66,24 @@ func main() {
 	}
 	fmt.Println(deleted_user)
 
+	create_post, err := c.CreatePost(
+		models.CreatePost{
+			Id:          "1254",
+			Title:       "taytili",
+			UserId:      1231,
+			Description: "cool",
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(create_post)
+
+	post,err:=c.GetByIdPost("1254")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(post)
 	// get_by_id
 
 	// user, err = c.GetUserById(
@@ -73,9 +91,10 @@ func main() {
 	// 		Id: 1,
 	// 	},
 	// )
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("GetUserById:", user)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("GetUserById:", user)
+	GetUserPost()
 
 }

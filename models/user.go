@@ -44,7 +44,7 @@ type CreateUser struct {
 	Friends     []Friend `json:"friends"`
 }
 type UserPrimaryKey struct {
-	Id int `json:"id"`
+	Id string `json:"id"`
 }
 type DeleteUser struct {
 	First_name string `json:"first_name"`
