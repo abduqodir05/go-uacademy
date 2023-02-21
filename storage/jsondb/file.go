@@ -12,14 +12,14 @@ type Store struct {
 
 func NewFileJson(cfg *config.Config) (storage.StorageI, error) {
 
-	ProductFile, err := os.Open(cfg.Path + cfg.ProductFileName)
+	productFile, err := os.Open(cfg.Path + cfg.ProductFileName)
 	if err != nil {
 		return nil, err
 	}
 
 	return &Store{
-		product: NewProductRepo(cfg.Path+cfg.ProductFileName, ProductFile),
-	}, nil
+		product: NewProductRepo(cfg.Path+cfg. ProductFileName, productFile),
+	},nil
 
 }
 
@@ -27,6 +27,6 @@ func (s *Store) CloseDB() {
 	s.product.file.Close()
 }
 
-func (s *Store) User() storage.UserRepoI {
+func (s *Store) Product() storage.ProductRepoI {
 	return s.product
 }

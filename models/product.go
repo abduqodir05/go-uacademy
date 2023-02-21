@@ -10,14 +10,20 @@ type ProductPrimaryKey struct {
 }
 
 type CreateProduct struct {
-	Name    string `json:"name"`
-	Surname string `json:"urname"`
+	Id    string     `json:"id"`
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
 }
 
 type UpdateProduct struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Surname string `json:"urname"`
+	Id    string     `json:"id"`
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
+}
+type DeleteProduct struct {
+	Id    int     `json:"id"`
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
 }
 
 type GetListRequestProduct struct {

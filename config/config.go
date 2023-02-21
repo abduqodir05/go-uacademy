@@ -5,6 +5,7 @@ type Config struct {
 
 	UserFileName string
 	ProductFileName string
+	ShopcardFileName string
 }
 
 func Load() Config {
@@ -12,8 +13,9 @@ func Load() Config {
 	cfg := Config{}
 
 	cfg.Path = "./data"
-	cfg.UserFileName = "/customer.json"
-	cfg.UserFileName = "/product.json"
+	cfg.UserFileName = "/users.json"
+	cfg.ProductFileName = "/product.json"
+	cfg.ShopcardFileName = "/product.json"
 
 	return cfg
 }
