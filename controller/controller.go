@@ -1,19 +1,18 @@
 package controller
 
 import (
-	"go-uacademy/config"
-	"go-uacademy/storage"
+	"app/config"
+	"app/storage"
 )
 
 type Controller struct {
-	cfg   *config.Config
 	store storage.StorageI
+	cfg *config.Config
 }
 
-// Controller Constructor
 func NewController(cfg *config.Config, store storage.StorageI) *Controller {
 	return &Controller{
-		cfg:   cfg,
 		store: store,
+		cfg: cfg,
 	}
 }

@@ -1,60 +1,49 @@
 package models
 
-type User struct {
-	Id          string   `json:"id"`
-	First_name  string   `json:"first_name"`
-	Last_name   string   `json:"last_name"`
-	Gender      string   `json:"gender"`
-	Card_number string   `json:"card_number"`
-	Birthday    string   `json:"birthday"`
-	Profession  string   `json:"profession"`
-	Address     Address  `json:"address"`
-	Friends     []Friend `json:"friends"`
-}
-
-type Address struct {
-	Street string `json:"street"`
-	City   string `json:"city"`
-}
-type Friend struct {
-	Id           string `json:"id"`
-	Email        string `json:"email"`
-	Phone_number string `json:"phone_number"`
-}
-type UpdateUser struct {
-	Id          string   `json:"id"`
-	First_name  string   `json:"first_name"`
-	Last_name   string   `json:"last_name"`
-	Gender      string   `json:"gender"`
-	Card_number string   `json:"card_number"`
-	Birthday    string   `json:"birthday"`
-	Profession  string   `json:"profession"`
-	Address     Address  `json:"address"`
-	Friends     []Friend `json:"friends"`
-}
-type CreateUser struct {
-	Id          string   `json:"id"`
-	First_name  string   `json:"first_name"`
-	Last_name   string   `json:"last_name"`
-	Gender      string   `json:"gender"`
-	Card_number string   `json:"card_number"`
-	Birthday    string   `json:"birthday"`
-	Profession  string   `json:"profession"`
-	Address     Address  `json:"address"`
-	Friends     []Friend `json:"friends"`
-}
 type UserPrimaryKey struct {
 	Id string `json:"id"`
 }
-type DeleteUser struct {
-	First_name string `json:"first_name"`
-	Last_name  string `json:"last_name"`
+
+type User struct {
+	Id      string  `json:"id"`
+	Name    string  `json:"name"`
+	Surname string  `json:"surname"`
+	Balance float64 `json:"balance"`
 }
+
+type UpdateUser struct {
+	Name    string  `json:"name"`
+	Surname string  `json:"surname"`
+	Balance float64 `json:"balance"`
+}
+
+type CreateUser struct {
+	Name    string  `json:"name"`
+	Surname string  `json:"surname"`
+	Balance float64 `json:"balance"`
+}
+
+type GetListRequest struct {
+	Offset int `json:"offset"`
+	Limit  int `json:"limit"`
+}
+
 type GetListResponse struct {
 	Count int    `json:"count"`
 	Users []User `json:"users"`
 }
-type GetListRequest struct {
-	Offset int `json:"offset"`
-	Limit  int `json:"limit"`
+
+type UserHistory struct {
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
+	Total float64 `json:"total"`
+	Count int     `json:"count"`
+	Time  string  `json:"time"`
+}
+
+type GetUserHistoryDto struct {
+	UserHistory []UserHistory `json:"userHistory"`
+}
+type GetUserTotalPrice struct {
+	UserTotalPrice []UserHistory `json:"userTotalPrice"`
 }
